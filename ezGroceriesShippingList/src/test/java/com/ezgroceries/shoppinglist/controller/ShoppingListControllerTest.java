@@ -43,7 +43,7 @@ class ShoppingListControllerTest {
     @Test
     void addCocktailToShoppingList() throws Exception {
         var requestBody = objectMapper.writeValueAsString(new Cocktail()
-                .setCocktailId("123"));
+                .setIdDrink("123"));
 
         mockMvc.perform(post("/shopping-lists/{cocktailId}}/cocktails", COCKTAIL_ID)
                         .contentType(MediaType.APPLICATION_JSON)

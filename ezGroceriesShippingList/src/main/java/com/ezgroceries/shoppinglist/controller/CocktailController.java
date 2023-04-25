@@ -1,5 +1,7 @@
 package com.ezgroceries.shoppinglist.controller;
 
+import com.ezgroceries.shoppinglist.Service.CocktailService;
+import com.ezgroceries.shoppinglist.Service.CocktailServiceImpl;
 import com.ezgroceries.shoppinglist.model.Cocktail;
 import com.ezgroceries.shoppinglist.out.CocktailDBClient;
 import lombok.RequiredArgsConstructor;
@@ -19,10 +21,13 @@ import static com.ezgroceries.shoppinglist.util.HttpParams.SEARCH;
 public class CocktailController {
 
     private final CocktailDBClient cocktailDBClient;
+    private final CocktailService cocktailService;
 
     @GetMapping("/cocktails")
     public ResponseEntity<List<Cocktail>> getCocktails(@RequestParam(value = SEARCH) String search) {
         log.info("--- LOG --- Getting cocktails...");
-        return ResponseEntity.ok(cocktailDBClient.searchCocktails(search).toCocktails());
+        var cocktailsList = cocktailDBClient.searchCocktails(search).toCocktails();
+
+        return ResponseEntity.ok(cocktailService.create(cocktailsList));
     }
 }

@@ -9,6 +9,7 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Getter
@@ -43,7 +44,7 @@ public class CocktailDBResponse {
 
         public Cocktail toCocktail() {
             return new Cocktail()
-                    .setCocktailId(idDrink)
+                    .setIdDrink(idDrink)
                     .setName(strDrink)
                     .setGlass(strGlass)
                     .setInstructions(strInstructions)
@@ -53,8 +54,9 @@ public class CocktailDBResponse {
                             strIngredient2,
                             strIngredient3,
                             strIngredient4,
-                            strIngredient5).filter(StringUtils::isNoneBlank)
-                            .toList());
+                            strIngredient5)
+                            .filter(StringUtils::isNoneBlank)
+                            .collect(Collectors.toSet()));
         }
     }
 }
